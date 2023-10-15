@@ -36,13 +36,8 @@ export const putEmpleados = async (req, res) => {
   try {
     const { id } = req.params
     const { nombre, email, telefono, salario } = req.body
-    const nuevoEmpleado = {
-      nombre,
-      email,
-      telefono,
-      salario
-    }
-    await pool.query('UPDATE empleados SET nombre = IFNULL(?, nombre), email = IFNULL(?, email), telefono = IFNULL(?, telefono), salario = IFNULL(?, salario) WHERE id = ?', [nuevoEmpleado, id])
+
+    await pool.query('UPDATE empleados SET nombre = IFNULL(?, nombre), email = IFNULL(?, email), telefono = IFNULL(?, telefono), salario = IFNULL(?, salario) WHERE id = ?', [nombre, email, telefono, salario, id])
     res.status(200).json({ message: 'Empleado actualizado' })
   } catch (error) {
     res.status(500).json({ message: 'Error en el servidor' })
